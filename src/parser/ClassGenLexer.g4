@@ -1,9 +1,9 @@
 lexer grammar ClassGenLexer;
 
-CLASS: 'class';
-ATTR: 'attribute';
-CONST: 'constructor';
-METHOD: 'method';
+CLASS_START: 'class';
+ATTR_START: 'attribute';
+CONST_START: 'constructor';
+METHOD_START: 'method';
 
 // different type of braces to be used
 START_BRACE: '(';
@@ -12,6 +12,7 @@ START_SQRE_BRACE: '[';
 END_SQRE_BRACE: ']';
 START_CURL_BRACE: '{';
 END_CURL_BRACE: '}';
+START_DOUBLE_QUOTE:'"' -> mode(TEXT_MODE);
 
 COLON_SEPARATOR: ':';
 COMMA_SEPARTOR: ',';
@@ -44,5 +45,6 @@ WS: [\r\n\t ]+ -> channel(HIDDEN);
 mode TEXT_MODE;
 // The names of class members have to start from an alphabetic character.
 // The naming convention issue for classes (i.e. A starting character needs to be capitalized.) may be checked later.
-TEXT_VALUE: '"' [a-zA-Z] [a-zA-Z0-9_] '"'  -> mode(DEFAULT_MODE);
+TEXT_VALUE: [a-zA-Z] [a-zA-Z0-9_];
+END_DOUBLE_QUOTE: '"'  -> mode(DEFAULT_MODE);
 WS_TEXT: [\r\n\t ]+ -> channel(HIDDEN) ;
