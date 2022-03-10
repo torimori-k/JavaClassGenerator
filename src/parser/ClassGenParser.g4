@@ -1,7 +1,7 @@
 parser grammar ClassGenParser;
 options { tokenVocab=ClassGenLexer; }
 
-program: class_stmt attr_stmt? const_stmt? method_stmt?;
+program: class_stmt attr_stmt const_stmt method_stmt;
 
 class_stmt: CLASS_START COLON_SEPARATOR class_def;
 
