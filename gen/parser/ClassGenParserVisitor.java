@@ -41,6 +41,12 @@ public interface ClassGenParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAttr_defs(ClassGenParser.Attr_defsContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ClassGenParser#opt_attr_defs}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOpt_attr_defs(ClassGenParser.Opt_attr_defsContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ClassGenParser#attr_def}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -65,6 +71,12 @@ public interface ClassGenParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitConst_defs(ClassGenParser.Const_defsContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ClassGenParser#opt_const_defs}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOpt_const_defs(ClassGenParser.Opt_const_defsContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ClassGenParser#const_def}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -83,11 +95,29 @@ public interface ClassGenParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMethod_defs(ClassGenParser.Method_defsContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ClassGenParser#opt_method_defs}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOpt_method_defs(ClassGenParser.Opt_method_defsContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ClassGenParser#method_def}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitMethod_def(ClassGenParser.Method_defContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ClassGenParser#name_exp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitName_exp(ClassGenParser.Name_expContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ClassGenParser#common_def}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCommon_def(ClassGenParser.Common_defContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ClassGenParser#class_visibility_mod}.
 	 * @param ctx the parse tree
