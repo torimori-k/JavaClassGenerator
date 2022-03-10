@@ -30,16 +30,16 @@ public class ClassGenParser extends Parser {
 		RULE_attr_defs = 4, RULE_opt_attr_defs = 5, RULE_attr_def = 6, RULE_getter_setter_options = 7, 
 		RULE_const_stmt = 8, RULE_const_defs = 9, RULE_opt_const_defs = 10, RULE_const_def = 11, 
 		RULE_method_stmt = 12, RULE_method_defs = 13, RULE_opt_method_defs = 14, 
-		RULE_method_def = 15, RULE_name_exp = 16, RULE_common_def = 17, RULE_class_visibility_mod = 18, 
-		RULE_visibility_mod = 19, RULE_default_type = 20, RULE_arr_type = 21, 
-		RULE_type = 22;
+		RULE_method_def = 15, RULE_name_exp = 16, RULE_class_visibility_mod = 17, 
+		RULE_visibility_mod = 18, RULE_arr_type = 19, RULE_attr_type = 20, RULE_method_type = 21, 
+		RULE_return_basic_type = 22, RULE_var_basic_type = 23;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"program", "class_stmt", "class_def", "attr_stmt", "attr_defs", "opt_attr_defs", 
 			"attr_def", "getter_setter_options", "const_stmt", "const_defs", "opt_const_defs", 
 			"const_def", "method_stmt", "method_defs", "opt_method_defs", "method_def", 
-			"name_exp", "common_def", "class_visibility_mod", "visibility_mod", "default_type", 
-			"arr_type", "type"
+			"name_exp", "class_visibility_mod", "visibility_mod", "arr_type", "attr_type", 
+			"method_type", "return_basic_type", "var_basic_type"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -150,42 +150,17 @@ public class ClassGenParser extends Parser {
 	public final ProgramContext program() throws RecognitionException {
 		ProgramContext _localctx = new ProgramContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_program);
-		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(46);
-			class_stmt();
 			setState(48);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==ATTR_START) {
-				{
-				setState(47);
-				attr_stmt();
-				}
-			}
-
+			class_stmt();
+			setState(49);
+			attr_stmt();
+			setState(50);
+			const_stmt();
 			setState(51);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==CONST_START) {
-				{
-				setState(50);
-				const_stmt();
-				}
-			}
-
-			setState(54);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==METHOD_START) {
-				{
-				setState(53);
-				method_stmt();
-				}
-			}
-
+			method_stmt();
 			}
 		}
 		catch (RecognitionException re) {
@@ -230,11 +205,11 @@ public class ClassGenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(56);
+			setState(53);
 			match(CLASS_START);
-			setState(57);
+			setState(54);
 			match(COLON_SEPARATOR);
-			setState(58);
+			setState(55);
 			class_def();
 			}
 		}
@@ -282,17 +257,17 @@ public class ClassGenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(61);
+			setState(58);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==PUBLIC_VISIBILITY || _la==PRIVATE_VISIBILITY) {
 				{
-				setState(60);
+				setState(57);
 				class_visibility_mod();
 				}
 			}
 
-			setState(63);
+			setState(60);
 			name_exp();
 			}
 		}
@@ -341,23 +316,23 @@ public class ClassGenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(65);
+			setState(62);
 			match(ATTR_START);
-			setState(66);
+			setState(63);
 			match(COLON_SEPARATOR);
-			setState(67);
+			setState(64);
 			match(START_SQRE_BRACE);
-			setState(69);
+			setState(66);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << START_DOUBLE_QUOTE) | (1L << PUBLIC_VISIBILITY) | (1L << PRIVATE_VISIBILITY) | (1L << PROTECTED_VISIBILITY))) != 0)) {
 				{
-				setState(68);
+				setState(65);
 				attr_defs();
 				}
 			}
 
-			setState(71);
+			setState(68);
 			match(END_SQRE_BRACE);
 			}
 		}
@@ -408,19 +383,19 @@ public class ClassGenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(73);
+			setState(70);
 			attr_def();
-			setState(77);
+			setState(74);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA_SEPARTOR) {
 				{
 				{
-				setState(74);
+				setState(71);
 				opt_attr_defs();
 				}
 				}
-				setState(79);
+				setState(76);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -467,9 +442,9 @@ public class ClassGenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(80);
+			setState(77);
 			match(COMMA_SEPARTOR);
-			setState(81);
+			setState(78);
 			attr_def();
 			}
 		}
@@ -485,11 +460,18 @@ public class ClassGenParser extends Parser {
 	}
 
 	public static class Attr_defContext extends ParserRuleContext {
-		public Common_defContext common_def() {
-			return getRuleContext(Common_defContext.class,0);
+		public Name_expContext name_exp() {
+			return getRuleContext(Name_expContext.class,0);
+		}
+		public TerminalNode COLON_SEPARATOR() { return getToken(ClassGenParser.COLON_SEPARATOR, 0); }
+		public Attr_typeContext attr_type() {
+			return getRuleContext(Attr_typeContext.class,0);
 		}
 		public Getter_setter_optionsContext getter_setter_options() {
 			return getRuleContext(Getter_setter_optionsContext.class,0);
+		}
+		public Visibility_modContext visibility_mod() {
+			return getRuleContext(Visibility_modContext.class,0);
 		}
 		public Attr_defContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -513,12 +495,27 @@ public class ClassGenParser extends Parser {
 	public final Attr_defContext attr_def() throws RecognitionException {
 		Attr_defContext _localctx = new Attr_defContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_attr_def);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
+			setState(81);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PUBLIC_VISIBILITY) | (1L << PRIVATE_VISIBILITY) | (1L << PROTECTED_VISIBILITY))) != 0)) {
+				{
+				setState(80);
+				visibility_mod();
+				}
+			}
+
 			setState(83);
-			common_def();
+			name_exp();
 			setState(84);
+			match(COLON_SEPARATOR);
+			setState(85);
+			attr_type();
+			setState(86);
 			getter_setter_options();
 			}
 		}
@@ -564,29 +561,29 @@ public class ClassGenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(86);
-			match(START_BRACE);
 			setState(88);
+			match(START_BRACE);
+			setState(90);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==GETTER_OPTION) {
 				{
-				setState(87);
+				setState(89);
 				match(GETTER_OPTION);
 				}
 			}
 
-			setState(91);
+			setState(93);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==SETTER_OPTION) {
 				{
-				setState(90);
+				setState(92);
 				match(SETTER_OPTION);
 				}
 			}
 
-			setState(93);
+			setState(95);
 			match(END_BRACE);
 			}
 		}
@@ -635,23 +632,23 @@ public class ClassGenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(95);
-			match(CONST_START);
-			setState(96);
-			match(COLON_SEPARATOR);
 			setState(97);
-			match(START_SQRE_BRACE);
+			match(CONST_START);
+			setState(98);
+			match(COLON_SEPARATOR);
 			setState(99);
+			match(START_SQRE_BRACE);
+			setState(101);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==START_DOUBLE_QUOTE) {
 				{
-				setState(98);
+				setState(100);
 				const_defs();
 				}
 			}
 
-			setState(101);
+			setState(103);
 			match(END_SQRE_BRACE);
 			}
 		}
@@ -702,19 +699,19 @@ public class ClassGenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(103);
+			setState(105);
 			const_def();
-			setState(107);
+			setState(109);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA_SEPARTOR) {
 				{
 				{
-				setState(104);
+				setState(106);
 				opt_const_defs();
 				}
 				}
-				setState(109);
+				setState(111);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -761,9 +758,9 @@ public class ClassGenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(110);
+			setState(112);
 			match(COMMA_SEPARTOR);
-			setState(111);
+			setState(113);
 			const_def();
 			}
 		}
@@ -807,7 +804,7 @@ public class ClassGenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(113);
+			setState(115);
 			name_exp();
 			}
 		}
@@ -856,23 +853,23 @@ public class ClassGenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(115);
-			match(METHOD_START);
-			setState(116);
-			match(COLON_SEPARATOR);
 			setState(117);
-			match(START_SQRE_BRACE);
+			match(METHOD_START);
+			setState(118);
+			match(COLON_SEPARATOR);
 			setState(119);
+			match(START_SQRE_BRACE);
+			setState(121);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << START_DOUBLE_QUOTE) | (1L << PUBLIC_VISIBILITY) | (1L << PRIVATE_VISIBILITY) | (1L << PROTECTED_VISIBILITY))) != 0)) {
 				{
-				setState(118);
+				setState(120);
 				method_defs();
 				}
 			}
 
-			setState(121);
+			setState(123);
 			match(END_SQRE_BRACE);
 			}
 		}
@@ -923,19 +920,19 @@ public class ClassGenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(123);
+			setState(125);
 			method_def();
-			setState(127);
+			setState(129);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA_SEPARTOR) {
 				{
 				{
-				setState(124);
+				setState(126);
 				opt_method_defs();
 				}
 				}
-				setState(129);
+				setState(131);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -982,9 +979,9 @@ public class ClassGenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(130);
+			setState(132);
 			match(COMMA_SEPARTOR);
-			setState(131);
+			setState(133);
 			method_def();
 			}
 		}
@@ -1000,8 +997,15 @@ public class ClassGenParser extends Parser {
 	}
 
 	public static class Method_defContext extends ParserRuleContext {
-		public Common_defContext common_def() {
-			return getRuleContext(Common_defContext.class,0);
+		public Name_expContext name_exp() {
+			return getRuleContext(Name_expContext.class,0);
+		}
+		public TerminalNode COLON_SEPARATOR() { return getToken(ClassGenParser.COLON_SEPARATOR, 0); }
+		public Method_typeContext method_type() {
+			return getRuleContext(Method_typeContext.class,0);
+		}
+		public Visibility_modContext visibility_mod() {
+			return getRuleContext(Visibility_modContext.class,0);
 		}
 		public Method_defContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1025,11 +1029,26 @@ public class ClassGenParser extends Parser {
 	public final Method_defContext method_def() throws RecognitionException {
 		Method_defContext _localctx = new Method_defContext(_ctx, getState());
 		enterRule(_localctx, 30, RULE_method_def);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(133);
-			common_def();
+			setState(136);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PUBLIC_VISIBILITY) | (1L << PRIVATE_VISIBILITY) | (1L << PROTECTED_VISIBILITY))) != 0)) {
+				{
+				setState(135);
+				visibility_mod();
+				}
+			}
+
+			setState(138);
+			name_exp();
+			setState(139);
+			match(COLON_SEPARATOR);
+			setState(140);
+			method_type();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1072,78 +1091,12 @@ public class ClassGenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(135);
-			match(START_DOUBLE_QUOTE);
-			setState(136);
-			match(TEXT_VALUE);
-			setState(137);
-			match(END_DOUBLE_QUOTE);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class Common_defContext extends ParserRuleContext {
-		public Name_expContext name_exp() {
-			return getRuleContext(Name_expContext.class,0);
-		}
-		public TerminalNode COLON_SEPARATOR() { return getToken(ClassGenParser.COLON_SEPARATOR, 0); }
-		public TypeContext type() {
-			return getRuleContext(TypeContext.class,0);
-		}
-		public Visibility_modContext visibility_mod() {
-			return getRuleContext(Visibility_modContext.class,0);
-		}
-		public Common_defContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_common_def; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).enterCommon_def(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).exitCommon_def(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ClassGenParserVisitor ) return ((ClassGenParserVisitor<? extends T>)visitor).visitCommon_def(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final Common_defContext common_def() throws RecognitionException {
-		Common_defContext _localctx = new Common_defContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_common_def);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(140);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PUBLIC_VISIBILITY) | (1L << PRIVATE_VISIBILITY) | (1L << PROTECTED_VISIBILITY))) != 0)) {
-				{
-				setState(139);
-				visibility_mod();
-				}
-			}
-
 			setState(142);
-			name_exp();
+			match(START_DOUBLE_QUOTE);
 			setState(143);
-			match(COLON_SEPARATOR);
+			match(TEXT_VALUE);
 			setState(144);
-			type();
+			match(END_DOUBLE_QUOTE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1181,7 +1134,7 @@ public class ClassGenParser extends Parser {
 
 	public final Class_visibility_modContext class_visibility_mod() throws RecognitionException {
 		Class_visibility_modContext _localctx = new Class_visibility_modContext(_ctx, getState());
-		enterRule(_localctx, 36, RULE_class_visibility_mod);
+		enterRule(_localctx, 34, RULE_class_visibility_mod);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
@@ -1234,7 +1187,7 @@ public class ClassGenParser extends Parser {
 
 	public final Visibility_modContext visibility_mod() throws RecognitionException {
 		Visibility_modContext _localctx = new Visibility_modContext(_ctx, getState());
-		enterRule(_localctx, 38, RULE_visibility_mod);
+		enterRule(_localctx, 36, RULE_visibility_mod);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
@@ -1262,71 +1215,11 @@ public class ClassGenParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Default_typeContext extends ParserRuleContext {
-		public TerminalNode VOID_TYPE() { return getToken(ClassGenParser.VOID_TYPE, 0); }
-		public TerminalNode BYTE_TYPE() { return getToken(ClassGenParser.BYTE_TYPE, 0); }
-		public TerminalNode SHORT_TYPE() { return getToken(ClassGenParser.SHORT_TYPE, 0); }
-		public TerminalNode INT_TYPE() { return getToken(ClassGenParser.INT_TYPE, 0); }
-		public TerminalNode LONG_TYPE() { return getToken(ClassGenParser.LONG_TYPE, 0); }
-		public TerminalNode FLOAT_TYPE() { return getToken(ClassGenParser.FLOAT_TYPE, 0); }
-		public TerminalNode DOUBLE_TYPE() { return getToken(ClassGenParser.DOUBLE_TYPE, 0); }
-		public TerminalNode BOOLEAN_TYPE() { return getToken(ClassGenParser.BOOLEAN_TYPE, 0); }
-		public TerminalNode CHAR_TYPE() { return getToken(ClassGenParser.CHAR_TYPE, 0); }
-		public TerminalNode STRING_TYPE() { return getToken(ClassGenParser.STRING_TYPE, 0); }
-		public Default_typeContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_default_type; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).enterDefault_type(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).exitDefault_type(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ClassGenParserVisitor ) return ((ClassGenParserVisitor<? extends T>)visitor).visitDefault_type(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final Default_typeContext default_type() throws RecognitionException {
-		Default_typeContext _localctx = new Default_typeContext(_ctx, getState());
-		enterRule(_localctx, 40, RULE_default_type);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(150);
-			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << VOID_TYPE) | (1L << BYTE_TYPE) | (1L << SHORT_TYPE) | (1L << INT_TYPE) | (1L << LONG_TYPE) | (1L << FLOAT_TYPE) | (1L << DOUBLE_TYPE) | (1L << BOOLEAN_TYPE) | (1L << CHAR_TYPE) | (1L << STRING_TYPE))) != 0)) ) {
-			_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
 	public static class Arr_typeContext extends ParserRuleContext {
 		public TerminalNode ARRAY_TYPE() { return getToken(ClassGenParser.ARRAY_TYPE, 0); }
 		public TerminalNode START_CURL_BRACE() { return getToken(ClassGenParser.START_CURL_BRACE, 0); }
-		public Default_typeContext default_type() {
-			return getRuleContext(Default_typeContext.class,0);
+		public Var_basic_typeContext var_basic_type() {
+			return getRuleContext(Var_basic_typeContext.class,0);
 		}
 		public TerminalNode END_CURL_BRACE() { return getToken(ClassGenParser.END_CURL_BRACE, 0); }
 		public Arr_typeContext(ParserRuleContext parent, int invokingState) {
@@ -1350,17 +1243,17 @@ public class ClassGenParser extends Parser {
 
 	public final Arr_typeContext arr_type() throws RecognitionException {
 		Arr_typeContext _localctx = new Arr_typeContext(_ctx, getState());
-		enterRule(_localctx, 42, RULE_arr_type);
+		enterRule(_localctx, 38, RULE_arr_type);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(152);
+			setState(150);
 			match(ARRAY_TYPE);
-			setState(153);
+			setState(151);
 			match(START_CURL_BRACE);
-			setState(154);
-			default_type();
-			setState(155);
+			setState(152);
+			var_basic_type();
+			setState(153);
 			match(END_CURL_BRACE);
 			}
 		}
@@ -1375,40 +1268,39 @@ public class ClassGenParser extends Parser {
 		return _localctx;
 	}
 
-	public static class TypeContext extends ParserRuleContext {
-		public Default_typeContext default_type() {
-			return getRuleContext(Default_typeContext.class,0);
+	public static class Attr_typeContext extends ParserRuleContext {
+		public Var_basic_typeContext var_basic_type() {
+			return getRuleContext(Var_basic_typeContext.class,0);
 		}
 		public Arr_typeContext arr_type() {
 			return getRuleContext(Arr_typeContext.class,0);
 		}
-		public TypeContext(ParserRuleContext parent, int invokingState) {
+		public Attr_typeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_type; }
+		@Override public int getRuleIndex() { return RULE_attr_type; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).enterType(this);
+			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).enterAttr_type(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).exitType(this);
+			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).exitAttr_type(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ClassGenParserVisitor ) return ((ClassGenParserVisitor<? extends T>)visitor).visitType(this);
+			if ( visitor instanceof ClassGenParserVisitor ) return ((ClassGenParserVisitor<? extends T>)visitor).visitAttr_type(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final TypeContext type() throws RecognitionException {
-		TypeContext _localctx = new TypeContext(_ctx, getState());
-		enterRule(_localctx, 44, RULE_type);
+	public final Attr_typeContext attr_type() throws RecognitionException {
+		Attr_typeContext _localctx = new Attr_typeContext(_ctx, getState());
+		enterRule(_localctx, 40, RULE_attr_type);
 		try {
-			setState(159);
+			setState(157);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case VOID_TYPE:
 			case BYTE_TYPE:
 			case SHORT_TYPE:
 			case INT_TYPE:
@@ -1420,14 +1312,14 @@ public class ClassGenParser extends Parser {
 			case STRING_TYPE:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(157);
-				default_type();
+				setState(155);
+				var_basic_type();
 				}
 				break;
 			case ARRAY_TYPE:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(158);
+				setState(156);
 				arr_type();
 				}
 				break;
@@ -1446,50 +1338,251 @@ public class ClassGenParser extends Parser {
 		return _localctx;
 	}
 
+	public static class Method_typeContext extends ParserRuleContext {
+		public Return_basic_typeContext return_basic_type() {
+			return getRuleContext(Return_basic_typeContext.class,0);
+		}
+		public Arr_typeContext arr_type() {
+			return getRuleContext(Arr_typeContext.class,0);
+		}
+		public Method_typeContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_method_type; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).enterMethod_type(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).exitMethod_type(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ClassGenParserVisitor ) return ((ClassGenParserVisitor<? extends T>)visitor).visitMethod_type(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Method_typeContext method_type() throws RecognitionException {
+		Method_typeContext _localctx = new Method_typeContext(_ctx, getState());
+		enterRule(_localctx, 42, RULE_method_type);
+		try {
+			setState(161);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case VOID_TYPE:
+			case BYTE_TYPE:
+			case SHORT_TYPE:
+			case INT_TYPE:
+			case LONG_TYPE:
+			case FLOAT_TYPE:
+			case DOUBLE_TYPE:
+			case BOOLEAN_TYPE:
+			case CHAR_TYPE:
+			case STRING_TYPE:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(159);
+				return_basic_type();
+				}
+				break;
+			case ARRAY_TYPE:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(160);
+				arr_type();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Return_basic_typeContext extends ParserRuleContext {
+		public TerminalNode VOID_TYPE() { return getToken(ClassGenParser.VOID_TYPE, 0); }
+		public Var_basic_typeContext var_basic_type() {
+			return getRuleContext(Var_basic_typeContext.class,0);
+		}
+		public Return_basic_typeContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_return_basic_type; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).enterReturn_basic_type(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).exitReturn_basic_type(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ClassGenParserVisitor ) return ((ClassGenParserVisitor<? extends T>)visitor).visitReturn_basic_type(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Return_basic_typeContext return_basic_type() throws RecognitionException {
+		Return_basic_typeContext _localctx = new Return_basic_typeContext(_ctx, getState());
+		enterRule(_localctx, 44, RULE_return_basic_type);
+		try {
+			setState(165);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case VOID_TYPE:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(163);
+				match(VOID_TYPE);
+				}
+				break;
+			case BYTE_TYPE:
+			case SHORT_TYPE:
+			case INT_TYPE:
+			case LONG_TYPE:
+			case FLOAT_TYPE:
+			case DOUBLE_TYPE:
+			case BOOLEAN_TYPE:
+			case CHAR_TYPE:
+			case STRING_TYPE:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(164);
+				var_basic_type();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Var_basic_typeContext extends ParserRuleContext {
+		public TerminalNode BYTE_TYPE() { return getToken(ClassGenParser.BYTE_TYPE, 0); }
+		public TerminalNode SHORT_TYPE() { return getToken(ClassGenParser.SHORT_TYPE, 0); }
+		public TerminalNode INT_TYPE() { return getToken(ClassGenParser.INT_TYPE, 0); }
+		public TerminalNode LONG_TYPE() { return getToken(ClassGenParser.LONG_TYPE, 0); }
+		public TerminalNode FLOAT_TYPE() { return getToken(ClassGenParser.FLOAT_TYPE, 0); }
+		public TerminalNode DOUBLE_TYPE() { return getToken(ClassGenParser.DOUBLE_TYPE, 0); }
+		public TerminalNode BOOLEAN_TYPE() { return getToken(ClassGenParser.BOOLEAN_TYPE, 0); }
+		public TerminalNode CHAR_TYPE() { return getToken(ClassGenParser.CHAR_TYPE, 0); }
+		public TerminalNode STRING_TYPE() { return getToken(ClassGenParser.STRING_TYPE, 0); }
+		public Var_basic_typeContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_var_basic_type; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).enterVar_basic_type(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).exitVar_basic_type(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ClassGenParserVisitor ) return ((ClassGenParserVisitor<? extends T>)visitor).visitVar_basic_type(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Var_basic_typeContext var_basic_type() throws RecognitionException {
+		Var_basic_typeContext _localctx = new Var_basic_typeContext(_ctx, getState());
+		enterRule(_localctx, 46, RULE_var_basic_type);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(167);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BYTE_TYPE) | (1L << SHORT_TYPE) | (1L << INT_TYPE) | (1L << LONG_TYPE) | (1L << FLOAT_TYPE) | (1L << DOUBLE_TYPE) | (1L << BOOLEAN_TYPE) | (1L << CHAR_TYPE) | (1L << STRING_TYPE))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3#\u00a4\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3#\u00ac\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
-		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\3\2\3\2\5"+
-		"\2\63\n\2\3\2\5\2\66\n\2\3\2\5\29\n\2\3\3\3\3\3\3\3\3\3\4\5\4@\n\4\3\4"+
-		"\3\4\3\5\3\5\3\5\3\5\5\5H\n\5\3\5\3\5\3\6\3\6\7\6N\n\6\f\6\16\6Q\13\6"+
-		"\3\7\3\7\3\7\3\b\3\b\3\b\3\t\3\t\5\t[\n\t\3\t\5\t^\n\t\3\t\3\t\3\n\3\n"+
-		"\3\n\3\n\5\nf\n\n\3\n\3\n\3\13\3\13\7\13l\n\13\f\13\16\13o\13\13\3\f\3"+
-		"\f\3\f\3\r\3\r\3\16\3\16\3\16\3\16\5\16z\n\16\3\16\3\16\3\17\3\17\7\17"+
-		"\u0080\n\17\f\17\16\17\u0083\13\17\3\20\3\20\3\20\3\21\3\21\3\22\3\22"+
-		"\3\22\3\22\3\23\5\23\u008f\n\23\3\23\3\23\3\23\3\23\3\24\3\24\3\25\3\25"+
-		"\3\26\3\26\3\27\3\27\3\27\3\27\3\27\3\30\3\30\5\30\u00a2\n\30\3\30\2\2"+
-		"\31\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\2\5\3\2\20\21\3\2"+
-		"\20\22\3\2\23\34\2\u009a\2\60\3\2\2\2\4:\3\2\2\2\6?\3\2\2\2\bC\3\2\2\2"+
-		"\nK\3\2\2\2\fR\3\2\2\2\16U\3\2\2\2\20X\3\2\2\2\22a\3\2\2\2\24i\3\2\2\2"+
-		"\26p\3\2\2\2\30s\3\2\2\2\32u\3\2\2\2\34}\3\2\2\2\36\u0084\3\2\2\2 \u0087"+
-		"\3\2\2\2\"\u0089\3\2\2\2$\u008e\3\2\2\2&\u0094\3\2\2\2(\u0096\3\2\2\2"+
-		"*\u0098\3\2\2\2,\u009a\3\2\2\2.\u00a1\3\2\2\2\60\62\5\4\3\2\61\63\5\b"+
-		"\5\2\62\61\3\2\2\2\62\63\3\2\2\2\63\65\3\2\2\2\64\66\5\22\n\2\65\64\3"+
-		"\2\2\2\65\66\3\2\2\2\668\3\2\2\2\679\5\32\16\28\67\3\2\2\289\3\2\2\29"+
-		"\3\3\2\2\2:;\7\3\2\2;<\7\16\2\2<=\5\6\4\2=\5\3\2\2\2>@\5&\24\2?>\3\2\2"+
-		"\2?@\3\2\2\2@A\3\2\2\2AB\5\"\22\2B\7\3\2\2\2CD\7\4\2\2DE\7\16\2\2EG\7"+
-		"\t\2\2FH\5\n\6\2GF\3\2\2\2GH\3\2\2\2HI\3\2\2\2IJ\7\n\2\2J\t\3\2\2\2KO"+
-		"\5\16\b\2LN\5\f\7\2ML\3\2\2\2NQ\3\2\2\2OM\3\2\2\2OP\3\2\2\2P\13\3\2\2"+
-		"\2QO\3\2\2\2RS\7\17\2\2ST\5\16\b\2T\r\3\2\2\2UV\5$\23\2VW\5\20\t\2W\17"+
-		"\3\2\2\2XZ\7\7\2\2Y[\7\36\2\2ZY\3\2\2\2Z[\3\2\2\2[]\3\2\2\2\\^\7\37\2"+
-		"\2]\\\3\2\2\2]^\3\2\2\2^_\3\2\2\2_`\7\b\2\2`\21\3\2\2\2ab\7\5\2\2bc\7"+
-		"\16\2\2ce\7\t\2\2df\5\24\13\2ed\3\2\2\2ef\3\2\2\2fg\3\2\2\2gh\7\n\2\2"+
-		"h\23\3\2\2\2im\5\30\r\2jl\5\26\f\2kj\3\2\2\2lo\3\2\2\2mk\3\2\2\2mn\3\2"+
-		"\2\2n\25\3\2\2\2om\3\2\2\2pq\7\17\2\2qr\5\30\r\2r\27\3\2\2\2st\5\"\22"+
-		"\2t\31\3\2\2\2uv\7\6\2\2vw\7\16\2\2wy\7\t\2\2xz\5\34\17\2yx\3\2\2\2yz"+
-		"\3\2\2\2z{\3\2\2\2{|\7\n\2\2|\33\3\2\2\2}\u0081\5 \21\2~\u0080\5\36\20"+
-		"\2\177~\3\2\2\2\u0080\u0083\3\2\2\2\u0081\177\3\2\2\2\u0081\u0082\3\2"+
-		"\2\2\u0082\35\3\2\2\2\u0083\u0081\3\2\2\2\u0084\u0085\7\17\2\2\u0085\u0086"+
-		"\5 \21\2\u0086\37\3\2\2\2\u0087\u0088\5$\23\2\u0088!\3\2\2\2\u0089\u008a"+
-		"\7\r\2\2\u008a\u008b\7!\2\2\u008b\u008c\7\"\2\2\u008c#\3\2\2\2\u008d\u008f"+
-		"\5(\25\2\u008e\u008d\3\2\2\2\u008e\u008f\3\2\2\2\u008f\u0090\3\2\2\2\u0090"+
-		"\u0091\5\"\22\2\u0091\u0092\7\16\2\2\u0092\u0093\5.\30\2\u0093%\3\2\2"+
-		"\2\u0094\u0095\t\2\2\2\u0095\'\3\2\2\2\u0096\u0097\t\3\2\2\u0097)\3\2"+
-		"\2\2\u0098\u0099\t\4\2\2\u0099+\3\2\2\2\u009a\u009b\7\35\2\2\u009b\u009c"+
-		"\7\13\2\2\u009c\u009d\5*\26\2\u009d\u009e\7\f\2\2\u009e-\3\2\2\2\u009f"+
-		"\u00a2\5*\26\2\u00a0\u00a2\5,\27\2\u00a1\u009f\3\2\2\2\u00a1\u00a0\3\2"+
-		"\2\2\u00a2/\3\2\2\2\20\62\658?GOZ]emy\u0081\u008e\u00a1";
+		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
+		"\3\2\3\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\4\5\4=\n\4\3\4\3\4\3\5\3\5\3\5"+
+		"\3\5\5\5E\n\5\3\5\3\5\3\6\3\6\7\6K\n\6\f\6\16\6N\13\6\3\7\3\7\3\7\3\b"+
+		"\5\bT\n\b\3\b\3\b\3\b\3\b\3\b\3\t\3\t\5\t]\n\t\3\t\5\t`\n\t\3\t\3\t\3"+
+		"\n\3\n\3\n\3\n\5\nh\n\n\3\n\3\n\3\13\3\13\7\13n\n\13\f\13\16\13q\13\13"+
+		"\3\f\3\f\3\f\3\r\3\r\3\16\3\16\3\16\3\16\5\16|\n\16\3\16\3\16\3\17\3\17"+
+		"\7\17\u0082\n\17\f\17\16\17\u0085\13\17\3\20\3\20\3\20\3\21\5\21\u008b"+
+		"\n\21\3\21\3\21\3\21\3\21\3\22\3\22\3\22\3\22\3\23\3\23\3\24\3\24\3\25"+
+		"\3\25\3\25\3\25\3\25\3\26\3\26\5\26\u00a0\n\26\3\27\3\27\5\27\u00a4\n"+
+		"\27\3\30\3\30\5\30\u00a8\n\30\3\31\3\31\3\31\2\2\32\2\4\6\b\n\f\16\20"+
+		"\22\24\26\30\32\34\36 \"$&(*,.\60\2\5\3\2\20\21\3\2\20\22\3\2\24\34\2"+
+		"\u00a1\2\62\3\2\2\2\4\67\3\2\2\2\6<\3\2\2\2\b@\3\2\2\2\nH\3\2\2\2\fO\3"+
+		"\2\2\2\16S\3\2\2\2\20Z\3\2\2\2\22c\3\2\2\2\24k\3\2\2\2\26r\3\2\2\2\30"+
+		"u\3\2\2\2\32w\3\2\2\2\34\177\3\2\2\2\36\u0086\3\2\2\2 \u008a\3\2\2\2\""+
+		"\u0090\3\2\2\2$\u0094\3\2\2\2&\u0096\3\2\2\2(\u0098\3\2\2\2*\u009f\3\2"+
+		"\2\2,\u00a3\3\2\2\2.\u00a7\3\2\2\2\60\u00a9\3\2\2\2\62\63\5\4\3\2\63\64"+
+		"\5\b\5\2\64\65\5\22\n\2\65\66\5\32\16\2\66\3\3\2\2\2\678\7\3\2\289\7\16"+
+		"\2\29:\5\6\4\2:\5\3\2\2\2;=\5$\23\2<;\3\2\2\2<=\3\2\2\2=>\3\2\2\2>?\5"+
+		"\"\22\2?\7\3\2\2\2@A\7\4\2\2AB\7\16\2\2BD\7\t\2\2CE\5\n\6\2DC\3\2\2\2"+
+		"DE\3\2\2\2EF\3\2\2\2FG\7\n\2\2G\t\3\2\2\2HL\5\16\b\2IK\5\f\7\2JI\3\2\2"+
+		"\2KN\3\2\2\2LJ\3\2\2\2LM\3\2\2\2M\13\3\2\2\2NL\3\2\2\2OP\7\17\2\2PQ\5"+
+		"\16\b\2Q\r\3\2\2\2RT\5&\24\2SR\3\2\2\2ST\3\2\2\2TU\3\2\2\2UV\5\"\22\2"+
+		"VW\7\16\2\2WX\5*\26\2XY\5\20\t\2Y\17\3\2\2\2Z\\\7\7\2\2[]\7\36\2\2\\["+
+		"\3\2\2\2\\]\3\2\2\2]_\3\2\2\2^`\7\37\2\2_^\3\2\2\2_`\3\2\2\2`a\3\2\2\2"+
+		"ab\7\b\2\2b\21\3\2\2\2cd\7\5\2\2de\7\16\2\2eg\7\t\2\2fh\5\24\13\2gf\3"+
+		"\2\2\2gh\3\2\2\2hi\3\2\2\2ij\7\n\2\2j\23\3\2\2\2ko\5\30\r\2ln\5\26\f\2"+
+		"ml\3\2\2\2nq\3\2\2\2om\3\2\2\2op\3\2\2\2p\25\3\2\2\2qo\3\2\2\2rs\7\17"+
+		"\2\2st\5\30\r\2t\27\3\2\2\2uv\5\"\22\2v\31\3\2\2\2wx\7\6\2\2xy\7\16\2"+
+		"\2y{\7\t\2\2z|\5\34\17\2{z\3\2\2\2{|\3\2\2\2|}\3\2\2\2}~\7\n\2\2~\33\3"+
+		"\2\2\2\177\u0083\5 \21\2\u0080\u0082\5\36\20\2\u0081\u0080\3\2\2\2\u0082"+
+		"\u0085\3\2\2\2\u0083\u0081\3\2\2\2\u0083\u0084\3\2\2\2\u0084\35\3\2\2"+
+		"\2\u0085\u0083\3\2\2\2\u0086\u0087\7\17\2\2\u0087\u0088\5 \21\2\u0088"+
+		"\37\3\2\2\2\u0089\u008b\5&\24\2\u008a\u0089\3\2\2\2\u008a\u008b\3\2\2"+
+		"\2\u008b\u008c\3\2\2\2\u008c\u008d\5\"\22\2\u008d\u008e\7\16\2\2\u008e"+
+		"\u008f\5,\27\2\u008f!\3\2\2\2\u0090\u0091\7\r\2\2\u0091\u0092\7!\2\2\u0092"+
+		"\u0093\7\"\2\2\u0093#\3\2\2\2\u0094\u0095\t\2\2\2\u0095%\3\2\2\2\u0096"+
+		"\u0097\t\3\2\2\u0097\'\3\2\2\2\u0098\u0099\7\35\2\2\u0099\u009a\7\13\2"+
+		"\2\u009a\u009b\5\60\31\2\u009b\u009c\7\f\2\2\u009c)\3\2\2\2\u009d\u00a0"+
+		"\5\60\31\2\u009e\u00a0\5(\25\2\u009f\u009d\3\2\2\2\u009f\u009e\3\2\2\2"+
+		"\u00a0+\3\2\2\2\u00a1\u00a4\5.\30\2\u00a2\u00a4\5(\25\2\u00a3\u00a1\3"+
+		"\2\2\2\u00a3\u00a2\3\2\2\2\u00a4-\3\2\2\2\u00a5\u00a8\7\23\2\2\u00a6\u00a8"+
+		"\5\60\31\2\u00a7\u00a5\3\2\2\2\u00a7\u00a6\3\2\2\2\u00a8/\3\2\2\2\u00a9"+
+		"\u00aa\t\4\2\2\u00aa\61\3\2\2\2\20<DLS\\_go{\u0083\u008a\u009f\u00a3\u00a7";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

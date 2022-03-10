@@ -1,0 +1,4 @@
+class: +"Bird"
+attribute: [+"name":invalidType(gs)]
+constructor: ["name", "weight"]
+method: [+"fly":void, "eat":double]

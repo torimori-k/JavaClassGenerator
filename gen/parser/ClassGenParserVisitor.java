@@ -113,12 +113,6 @@ public interface ClassGenParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitName_exp(ClassGenParser.Name_expContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ClassGenParser#common_def}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCommon_def(ClassGenParser.Common_defContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link ClassGenParser#class_visibility_mod}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -131,21 +125,33 @@ public interface ClassGenParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVisibility_mod(ClassGenParser.Visibility_modContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ClassGenParser#default_type}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDefault_type(ClassGenParser.Default_typeContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link ClassGenParser#arr_type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitArr_type(ClassGenParser.Arr_typeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ClassGenParser#type}.
+	 * Visit a parse tree produced by {@link ClassGenParser#attr_type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitType(ClassGenParser.TypeContext ctx);
+	T visitAttr_type(ClassGenParser.Attr_typeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ClassGenParser#method_type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMethod_type(ClassGenParser.Method_typeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ClassGenParser#return_basic_type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturn_basic_type(ClassGenParser.Return_basic_typeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ClassGenParser#var_basic_type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVar_basic_type(ClassGenParser.Var_basic_typeContext ctx);
 }

@@ -1,0 +1,4 @@
+class: +"Bird"
+attribute: [+"name":string(), "weight":double(gs), -"id":int(g)]
+constructor: ["name", "weight"]
+method: [+"fly":void "eat":double]

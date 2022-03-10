@@ -178,16 +178,6 @@ public interface ClassGenParserListener extends ParseTreeListener {
 	 */
 	void exitName_exp(ClassGenParser.Name_expContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ClassGenParser#common_def}.
-	 * @param ctx the parse tree
-	 */
-	void enterCommon_def(ClassGenParser.Common_defContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ClassGenParser#common_def}.
-	 * @param ctx the parse tree
-	 */
-	void exitCommon_def(ClassGenParser.Common_defContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link ClassGenParser#class_visibility_mod}.
 	 * @param ctx the parse tree
 	 */
@@ -208,16 +198,6 @@ public interface ClassGenParserListener extends ParseTreeListener {
 	 */
 	void exitVisibility_mod(ClassGenParser.Visibility_modContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ClassGenParser#default_type}.
-	 * @param ctx the parse tree
-	 */
-	void enterDefault_type(ClassGenParser.Default_typeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ClassGenParser#default_type}.
-	 * @param ctx the parse tree
-	 */
-	void exitDefault_type(ClassGenParser.Default_typeContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link ClassGenParser#arr_type}.
 	 * @param ctx the parse tree
 	 */
@@ -228,13 +208,43 @@ public interface ClassGenParserListener extends ParseTreeListener {
 	 */
 	void exitArr_type(ClassGenParser.Arr_typeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ClassGenParser#type}.
+	 * Enter a parse tree produced by {@link ClassGenParser#attr_type}.
 	 * @param ctx the parse tree
 	 */
-	void enterType(ClassGenParser.TypeContext ctx);
+	void enterAttr_type(ClassGenParser.Attr_typeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ClassGenParser#type}.
+	 * Exit a parse tree produced by {@link ClassGenParser#attr_type}.
 	 * @param ctx the parse tree
 	 */
-	void exitType(ClassGenParser.TypeContext ctx);
+	void exitAttr_type(ClassGenParser.Attr_typeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ClassGenParser#method_type}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethod_type(ClassGenParser.Method_typeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ClassGenParser#method_type}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethod_type(ClassGenParser.Method_typeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ClassGenParser#return_basic_type}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturn_basic_type(ClassGenParser.Return_basic_typeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ClassGenParser#return_basic_type}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturn_basic_type(ClassGenParser.Return_basic_typeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ClassGenParser#var_basic_type}.
+	 * @param ctx the parse tree
+	 */
+	void enterVar_basic_type(ClassGenParser.Var_basic_typeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ClassGenParser#var_basic_type}.
+	 * @param ctx the parse tree
+	 */
+	void exitVar_basic_type(ClassGenParser.Var_basic_typeContext ctx);
 }

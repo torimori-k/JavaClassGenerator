@@ -220,18 +220,6 @@ public class ClassGenParserBaseListener implements ClassGenParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCommon_def(ClassGenParser.Common_defContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCommon_def(ClassGenParser.Common_defContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterClass_visibility_mod(ClassGenParser.Class_visibility_modContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -256,18 +244,6 @@ public class ClassGenParserBaseListener implements ClassGenParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDefault_type(ClassGenParser.Default_typeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDefault_type(ClassGenParser.Default_typeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterArr_type(ClassGenParser.Arr_typeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -280,13 +256,49 @@ public class ClassGenParserBaseListener implements ClassGenParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterType(ClassGenParser.TypeContext ctx) { }
+	@Override public void enterAttr_type(ClassGenParser.Attr_typeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitType(ClassGenParser.TypeContext ctx) { }
+	@Override public void exitAttr_type(ClassGenParser.Attr_typeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMethod_type(ClassGenParser.Method_typeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMethod_type(ClassGenParser.Method_typeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterReturn_basic_type(ClassGenParser.Return_basic_typeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitReturn_basic_type(ClassGenParser.Return_basic_typeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVar_basic_type(ClassGenParser.Var_basic_typeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVar_basic_type(ClassGenParser.Var_basic_typeContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
