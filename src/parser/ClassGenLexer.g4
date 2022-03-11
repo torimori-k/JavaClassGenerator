@@ -45,6 +45,6 @@ WS: [\r\n\t ]+ -> channel(HIDDEN);
 mode TEXT_MODE;
 // The names of class members have to start from an alphabetic character.
 // The naming convention issue for classes (i.e. A starting character needs to be capitalized.) may be checked later.
-TEXT_VALUE: [a-zA-Z] [a-zA-Z0-9_];
+TEXT_VALUE: [a-zA-Z] [a-zA-Z0-9_]*;
 END_DOUBLE_QUOTE: '"'  -> mode(DEFAULT_MODE);
 WS_TEXT: [\r\n\t ]+ -> channel(HIDDEN) ;
