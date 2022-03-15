@@ -32,6 +32,10 @@ public class Program extends Node{
         return methodStmt;
     }
 
+    public String getClassName(){
+        return this.classStmt.getName();
+    }
+
     @Override
     public <C, T> T accept(C context, ClassGenVisitor<C, T> v) {
         return v.visit(context, this);
