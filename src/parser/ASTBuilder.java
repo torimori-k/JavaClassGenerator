@@ -5,6 +5,7 @@ import exception.ASTBuilderException;
 import exception.InvalidVisibilityModifierExcpeption;
 import util.Utility;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
@@ -17,9 +18,18 @@ public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
     public Program visitProgram(ClassGenParser.ProgramContext ctx) {
         Utility.log("Start: building AST");
         ClassStmt classStmt = visitClass_stmt(ctx.class_stmt());
-        List<AttributeDef> attributeDefs = null;
-        List<ConstructorDef> constDefs = null;
-        List<MethodDef> methodDefs = null;
+
+        List<AttributeDef> attributeDefs = new ArrayList<>();
+        ClassGenParser.Attr_defsContext attr_defs = ctx.attr_stmt().attr_defs();
+        if (attr_defs != null) {
+            attributeDefs.add(visitAttr_def(attr_defs.attr_def()));
+            for(ClassGenParser.Opt_attr_defContext opt_attr_def: Utility.getSafeList(attr_defs.opt_attr_def())) {
+                attributeDefs.add(visitAttr_def(opt_attr_def.attr_def()));
+            }
+        }
+
+        List<ConstructorDef> constDefs = new ArrayList<>();
+        List<MethodDef> methodDefs = new ArrayList<>();
         Utility.log("Finish: building AST");
         return new Program(classStmt, attributeDefs, constDefs, methodDefs);
     }
@@ -58,6 +68,12 @@ public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
         }
         Utility.log("Handling class visibility modifier done");
         return result;
+    }
+
+    @Override
+    public AttributeDef visitAttr_def(ClassGenParser.Attr_defContext attr_defCxt) {
+        // TODO resume from here.
+        return null;
     }
 
 }
