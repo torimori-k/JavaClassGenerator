@@ -4,11 +4,11 @@ import exception.InvalidClassVisibilityModifierException;
 
 public class ClassStmt extends Node{
     private VisibilityModifier visMod;
-    private String name;
+    private ClassName name;
 
     public ClassStmt(VisibilityModifier visMod, String name) {
         this.visMod = visMod;
-        this.name = name;
+        this.name = new ClassName(name);
     }
 
     public VisibilityModifier getVisMod() {
@@ -16,7 +16,7 @@ public class ClassStmt extends Node{
     }
 
     public String getName() {
-        return name;
+        return this.name.getName();
     }
 
     @Override

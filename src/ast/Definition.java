@@ -2,13 +2,13 @@ package ast;
 
 public abstract class Definition extends Node{
     protected VisibilityModifier visMod;
-    protected String name;
+    protected Name name;
     protected BasicType type;
     protected boolean isArrayType;
 
     public Definition(VisibilityModifier visMod, String name, BasicType type, boolean isArrayType) {
         this.visMod = visMod;
-        this.name = name;
+        this.name = new Name(name);
         this.type = type;
         this.isArrayType = isArrayType;
     }
@@ -18,7 +18,7 @@ public abstract class Definition extends Node{
     }
 
     public String getName() {
-        return name;
+        return this.name.getName();
     }
 
     public BasicType getType() {

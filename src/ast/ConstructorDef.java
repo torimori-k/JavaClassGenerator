@@ -1,14 +1,14 @@
 package ast;
 
 public class ConstructorDef extends Node{
-    private String name;
+    private Name name;
 
     public ConstructorDef(String name) {
-        this.name = name;
+        this.name = new Name(name);
     }
 
     public String getName() {
-        return name;
+        return this.name.getName();
     }
 
     @Override
