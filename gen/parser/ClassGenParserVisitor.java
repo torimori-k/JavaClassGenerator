@@ -41,11 +41,11 @@ public interface ClassGenParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAttr_defs(ClassGenParser.Attr_defsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ClassGenParser#opt_attr_defs}.
+	 * Visit a parse tree produced by {@link ClassGenParser#opt_attr_def}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOpt_attr_defs(ClassGenParser.Opt_attr_defsContext ctx);
+	T visitOpt_attr_def(ClassGenParser.Opt_attr_defContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ClassGenParser#attr_def}.
 	 * @param ctx the parse tree
@@ -71,11 +71,11 @@ public interface ClassGenParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitConst_defs(ClassGenParser.Const_defsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ClassGenParser#opt_const_defs}.
+	 * Visit a parse tree produced by {@link ClassGenParser#opt_const_def}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOpt_const_defs(ClassGenParser.Opt_const_defsContext ctx);
+	T visitOpt_const_def(ClassGenParser.Opt_const_defContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ClassGenParser#const_def}.
 	 * @param ctx the parse tree
@@ -95,11 +95,11 @@ public interface ClassGenParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMethod_defs(ClassGenParser.Method_defsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ClassGenParser#opt_method_defs}.
+	 * Visit a parse tree produced by {@link ClassGenParser#opt_method_def}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOpt_method_defs(ClassGenParser.Opt_method_defsContext ctx);
+	T visitOpt_method_def(ClassGenParser.Opt_method_defContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ClassGenParser#method_def}.
 	 * @param ctx the parse tree

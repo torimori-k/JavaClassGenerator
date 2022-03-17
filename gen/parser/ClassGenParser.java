@@ -27,17 +27,17 @@ public class ClassGenParser extends Parser {
 		END_DOUBLE_QUOTE=32, WS_TEXT=33;
 	public static final int
 		RULE_program = 0, RULE_class_stmt = 1, RULE_class_def = 2, RULE_attr_stmt = 3, 
-		RULE_attr_defs = 4, RULE_opt_attr_defs = 5, RULE_attr_def = 6, RULE_getter_setter_options = 7, 
-		RULE_const_stmt = 8, RULE_const_defs = 9, RULE_opt_const_defs = 10, RULE_const_def = 11, 
-		RULE_method_stmt = 12, RULE_method_defs = 13, RULE_opt_method_defs = 14, 
+		RULE_attr_defs = 4, RULE_opt_attr_def = 5, RULE_attr_def = 6, RULE_getter_setter_options = 7, 
+		RULE_const_stmt = 8, RULE_const_defs = 9, RULE_opt_const_def = 10, RULE_const_def = 11, 
+		RULE_method_stmt = 12, RULE_method_defs = 13, RULE_opt_method_def = 14, 
 		RULE_method_def = 15, RULE_name_exp = 16, RULE_class_visibility_mod = 17, 
 		RULE_visibility_mod = 18, RULE_arr_type = 19, RULE_attr_type = 20, RULE_method_type = 21, 
 		RULE_return_basic_type = 22, RULE_var_basic_type = 23;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"program", "class_stmt", "class_def", "attr_stmt", "attr_defs", "opt_attr_defs", 
-			"attr_def", "getter_setter_options", "const_stmt", "const_defs", "opt_const_defs", 
-			"const_def", "method_stmt", "method_defs", "opt_method_defs", "method_def", 
+			"program", "class_stmt", "class_def", "attr_stmt", "attr_defs", "opt_attr_def", 
+			"attr_def", "getter_setter_options", "const_stmt", "const_defs", "opt_const_def", 
+			"const_def", "method_stmt", "method_defs", "opt_method_def", "method_def", 
 			"name_exp", "class_visibility_mod", "visibility_mod", "arr_type", "attr_type", 
 			"method_type", "return_basic_type", "var_basic_type"
 		};
@@ -351,11 +351,11 @@ public class ClassGenParser extends Parser {
 		public Attr_defContext attr_def() {
 			return getRuleContext(Attr_defContext.class,0);
 		}
-		public List<Opt_attr_defsContext> opt_attr_defs() {
-			return getRuleContexts(Opt_attr_defsContext.class);
+		public List<Opt_attr_defContext> opt_attr_def() {
+			return getRuleContexts(Opt_attr_defContext.class);
 		}
-		public Opt_attr_defsContext opt_attr_defs(int i) {
-			return getRuleContext(Opt_attr_defsContext.class,i);
+		public Opt_attr_defContext opt_attr_def(int i) {
+			return getRuleContext(Opt_attr_defContext.class,i);
 		}
 		public Attr_defsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -392,7 +392,7 @@ public class ClassGenParser extends Parser {
 				{
 				{
 				setState(71);
-				opt_attr_defs();
+				opt_attr_def();
 				}
 				}
 				setState(76);
@@ -412,33 +412,33 @@ public class ClassGenParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Opt_attr_defsContext extends ParserRuleContext {
+	public static class Opt_attr_defContext extends ParserRuleContext {
 		public TerminalNode COMMA_SEPARTOR() { return getToken(ClassGenParser.COMMA_SEPARTOR, 0); }
 		public Attr_defContext attr_def() {
 			return getRuleContext(Attr_defContext.class,0);
 		}
-		public Opt_attr_defsContext(ParserRuleContext parent, int invokingState) {
+		public Opt_attr_defContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_opt_attr_defs; }
+		@Override public int getRuleIndex() { return RULE_opt_attr_def; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).enterOpt_attr_defs(this);
+			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).enterOpt_attr_def(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).exitOpt_attr_defs(this);
+			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).exitOpt_attr_def(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ClassGenParserVisitor ) return ((ClassGenParserVisitor<? extends T>)visitor).visitOpt_attr_defs(this);
+			if ( visitor instanceof ClassGenParserVisitor ) return ((ClassGenParserVisitor<? extends T>)visitor).visitOpt_attr_def(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final Opt_attr_defsContext opt_attr_defs() throws RecognitionException {
-		Opt_attr_defsContext _localctx = new Opt_attr_defsContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_opt_attr_defs);
+	public final Opt_attr_defContext opt_attr_def() throws RecognitionException {
+		Opt_attr_defContext _localctx = new Opt_attr_defContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_opt_attr_def);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -667,11 +667,11 @@ public class ClassGenParser extends Parser {
 		public Const_defContext const_def() {
 			return getRuleContext(Const_defContext.class,0);
 		}
-		public List<Opt_const_defsContext> opt_const_defs() {
-			return getRuleContexts(Opt_const_defsContext.class);
+		public List<Opt_const_defContext> opt_const_def() {
+			return getRuleContexts(Opt_const_defContext.class);
 		}
-		public Opt_const_defsContext opt_const_defs(int i) {
-			return getRuleContext(Opt_const_defsContext.class,i);
+		public Opt_const_defContext opt_const_def(int i) {
+			return getRuleContext(Opt_const_defContext.class,i);
 		}
 		public Const_defsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -708,7 +708,7 @@ public class ClassGenParser extends Parser {
 				{
 				{
 				setState(106);
-				opt_const_defs();
+				opt_const_def();
 				}
 				}
 				setState(111);
@@ -728,33 +728,33 @@ public class ClassGenParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Opt_const_defsContext extends ParserRuleContext {
+	public static class Opt_const_defContext extends ParserRuleContext {
 		public TerminalNode COMMA_SEPARTOR() { return getToken(ClassGenParser.COMMA_SEPARTOR, 0); }
 		public Const_defContext const_def() {
 			return getRuleContext(Const_defContext.class,0);
 		}
-		public Opt_const_defsContext(ParserRuleContext parent, int invokingState) {
+		public Opt_const_defContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_opt_const_defs; }
+		@Override public int getRuleIndex() { return RULE_opt_const_def; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).enterOpt_const_defs(this);
+			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).enterOpt_const_def(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).exitOpt_const_defs(this);
+			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).exitOpt_const_def(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ClassGenParserVisitor ) return ((ClassGenParserVisitor<? extends T>)visitor).visitOpt_const_defs(this);
+			if ( visitor instanceof ClassGenParserVisitor ) return ((ClassGenParserVisitor<? extends T>)visitor).visitOpt_const_def(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final Opt_const_defsContext opt_const_defs() throws RecognitionException {
-		Opt_const_defsContext _localctx = new Opt_const_defsContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_opt_const_defs);
+	public final Opt_const_defContext opt_const_def() throws RecognitionException {
+		Opt_const_defContext _localctx = new Opt_const_defContext(_ctx, getState());
+		enterRule(_localctx, 20, RULE_opt_const_def);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -888,11 +888,11 @@ public class ClassGenParser extends Parser {
 		public Method_defContext method_def() {
 			return getRuleContext(Method_defContext.class,0);
 		}
-		public List<Opt_method_defsContext> opt_method_defs() {
-			return getRuleContexts(Opt_method_defsContext.class);
+		public List<Opt_method_defContext> opt_method_def() {
+			return getRuleContexts(Opt_method_defContext.class);
 		}
-		public Opt_method_defsContext opt_method_defs(int i) {
-			return getRuleContext(Opt_method_defsContext.class,i);
+		public Opt_method_defContext opt_method_def(int i) {
+			return getRuleContext(Opt_method_defContext.class,i);
 		}
 		public Method_defsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -929,7 +929,7 @@ public class ClassGenParser extends Parser {
 				{
 				{
 				setState(126);
-				opt_method_defs();
+				opt_method_def();
 				}
 				}
 				setState(131);
@@ -949,33 +949,33 @@ public class ClassGenParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Opt_method_defsContext extends ParserRuleContext {
+	public static class Opt_method_defContext extends ParserRuleContext {
 		public TerminalNode COMMA_SEPARTOR() { return getToken(ClassGenParser.COMMA_SEPARTOR, 0); }
 		public Method_defContext method_def() {
 			return getRuleContext(Method_defContext.class,0);
 		}
-		public Opt_method_defsContext(ParserRuleContext parent, int invokingState) {
+		public Opt_method_defContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_opt_method_defs; }
+		@Override public int getRuleIndex() { return RULE_opt_method_def; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).enterOpt_method_defs(this);
+			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).enterOpt_method_def(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).exitOpt_method_defs(this);
+			if ( listener instanceof ClassGenParserListener ) ((ClassGenParserListener)listener).exitOpt_method_def(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ClassGenParserVisitor ) return ((ClassGenParserVisitor<? extends T>)visitor).visitOpt_method_defs(this);
+			if ( visitor instanceof ClassGenParserVisitor ) return ((ClassGenParserVisitor<? extends T>)visitor).visitOpt_method_def(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final Opt_method_defsContext opt_method_defs() throws RecognitionException {
-		Opt_method_defsContext _localctx = new Opt_method_defsContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_opt_method_defs);
+	public final Opt_method_defContext opt_method_def() throws RecognitionException {
+		Opt_method_defContext _localctx = new Opt_method_defContext(_ctx, getState());
+		enterRule(_localctx, 28, RULE_opt_method_def);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{

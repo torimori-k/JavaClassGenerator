@@ -52,7 +52,7 @@ public class ClassGenParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> im
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitOpt_attr_defs(ClassGenParser.Opt_attr_defsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOpt_attr_def(ClassGenParser.Opt_attr_defContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -87,7 +87,7 @@ public class ClassGenParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> im
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitOpt_const_defs(ClassGenParser.Opt_const_defsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOpt_const_def(ClassGenParser.Opt_const_defContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -115,7 +115,7 @@ public class ClassGenParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> im
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitOpt_method_defs(ClassGenParser.Opt_method_defsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOpt_method_def(ClassGenParser.Opt_method_defContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

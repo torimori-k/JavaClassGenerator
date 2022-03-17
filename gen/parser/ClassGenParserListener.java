@@ -58,15 +58,15 @@ public interface ClassGenParserListener extends ParseTreeListener {
 	 */
 	void exitAttr_defs(ClassGenParser.Attr_defsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ClassGenParser#opt_attr_defs}.
+	 * Enter a parse tree produced by {@link ClassGenParser#opt_attr_def}.
 	 * @param ctx the parse tree
 	 */
-	void enterOpt_attr_defs(ClassGenParser.Opt_attr_defsContext ctx);
+	void enterOpt_attr_def(ClassGenParser.Opt_attr_defContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ClassGenParser#opt_attr_defs}.
+	 * Exit a parse tree produced by {@link ClassGenParser#opt_attr_def}.
 	 * @param ctx the parse tree
 	 */
-	void exitOpt_attr_defs(ClassGenParser.Opt_attr_defsContext ctx);
+	void exitOpt_attr_def(ClassGenParser.Opt_attr_defContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ClassGenParser#attr_def}.
 	 * @param ctx the parse tree
@@ -108,15 +108,15 @@ public interface ClassGenParserListener extends ParseTreeListener {
 	 */
 	void exitConst_defs(ClassGenParser.Const_defsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ClassGenParser#opt_const_defs}.
+	 * Enter a parse tree produced by {@link ClassGenParser#opt_const_def}.
 	 * @param ctx the parse tree
 	 */
-	void enterOpt_const_defs(ClassGenParser.Opt_const_defsContext ctx);
+	void enterOpt_const_def(ClassGenParser.Opt_const_defContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ClassGenParser#opt_const_defs}.
+	 * Exit a parse tree produced by {@link ClassGenParser#opt_const_def}.
 	 * @param ctx the parse tree
 	 */
-	void exitOpt_const_defs(ClassGenParser.Opt_const_defsContext ctx);
+	void exitOpt_const_def(ClassGenParser.Opt_const_defContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ClassGenParser#const_def}.
 	 * @param ctx the parse tree
@@ -148,15 +148,15 @@ public interface ClassGenParserListener extends ParseTreeListener {
 	 */
 	void exitMethod_defs(ClassGenParser.Method_defsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ClassGenParser#opt_method_defs}.
+	 * Enter a parse tree produced by {@link ClassGenParser#opt_method_def}.
 	 * @param ctx the parse tree
 	 */
-	void enterOpt_method_defs(ClassGenParser.Opt_method_defsContext ctx);
+	void enterOpt_method_def(ClassGenParser.Opt_method_defContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ClassGenParser#opt_method_defs}.
+	 * Exit a parse tree produced by {@link ClassGenParser#opt_method_def}.
 	 * @param ctx the parse tree
 	 */
-	void exitOpt_method_defs(ClassGenParser.Opt_method_defsContext ctx);
+	void exitOpt_method_def(ClassGenParser.Opt_method_defContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ClassGenParser#method_def}.
 	 * @param ctx the parse tree

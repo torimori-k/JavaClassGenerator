@@ -76,13 +76,13 @@ public class ClassGenParserBaseListener implements ClassGenParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOpt_attr_defs(ClassGenParser.Opt_attr_defsContext ctx) { }
+	@Override public void enterOpt_attr_def(ClassGenParser.Opt_attr_defContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOpt_attr_defs(ClassGenParser.Opt_attr_defsContext ctx) { }
+	@Override public void exitOpt_attr_def(ClassGenParser.Opt_attr_defContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -136,13 +136,13 @@ public class ClassGenParserBaseListener implements ClassGenParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOpt_const_defs(ClassGenParser.Opt_const_defsContext ctx) { }
+	@Override public void enterOpt_const_def(ClassGenParser.Opt_const_defContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOpt_const_defs(ClassGenParser.Opt_const_defsContext ctx) { }
+	@Override public void exitOpt_const_def(ClassGenParser.Opt_const_defContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -184,13 +184,13 @@ public class ClassGenParserBaseListener implements ClassGenParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOpt_method_defs(ClassGenParser.Opt_method_defsContext ctx) { }
+	@Override public void enterOpt_method_def(ClassGenParser.Opt_method_defContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOpt_method_defs(ClassGenParser.Opt_method_defsContext ctx) { }
+	@Override public void exitOpt_method_def(ClassGenParser.Opt_method_defContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
