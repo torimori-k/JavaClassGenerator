@@ -3,6 +3,7 @@ package ui;
 
 import ast.Program;
 import exception.NullClassNameException;
+import jdk.jshell.execution.Util;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
@@ -27,15 +28,15 @@ public class Main {
 
         String className;
         try {
-            className = "Dog"; // program.getClassName(); // TODO: after completing implementation, uncomment this part
+            className = program.getClassName(); // TODO: after completing implementation, uncomment this part
             if(className != null) {
                 output_path = Utility.setOutputFileLocation(className);
                 PrintWriter out = new PrintWriter(new FileWriter(output_path));
                 // TODO: add evaluation
                 out.println("testing"); // TODO: delete this later.
                 out.close();
-                System.out.println("Evaluation Completed");
-                System.out.println("Generated a File at \"" + output_path + "\"");
+                Utility.log("Evaluation Completed");
+                Utility.log("Generated a File at \"" + output_path + "\"");
             } else {
                 throw new NullClassNameException();
             }
@@ -54,12 +55,12 @@ public class Main {
             System.out.println(token);
         }
         lexer.reset(); // reset the token stream to the initial position
-        System.out.println("Tokenization Completed.");
+        Utility.log("Tokenization Completed.");
 
         ClassGenParser parser = new ClassGenParser(tokens);
         ASTBuilder astBuilder = new ASTBuilder();
         Program program = astBuilder.visitProgram(parser.program());
-        System.out.println("Parsing and Building AST Completed.");
+        Utility.log("Parsing and Building AST Completed.");
 
         return program;
     }

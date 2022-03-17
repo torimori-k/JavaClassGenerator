@@ -23,4 +23,12 @@ public class ClassStmt extends Node{
     public <C, T> T accept(C context, ClassGenVisitor<C, T> v) {
         return v.visit(context, this);
     }
+
+    @Override
+    public String toString() {
+        return "ClassStmt{" +
+                "visMod=" + visMod +
+                ", name=" + name +
+                '}';
+    }
 }

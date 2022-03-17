@@ -22,4 +22,11 @@ public class ClassName extends Name{
 
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "ClassName{" +
+                "name='" + getName() + '\'' +
+                '}';
+    }
 }
