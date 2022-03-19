@@ -1,8 +1,9 @@
 package parser;
 
 import ast.*;
-import exception.ASTBuilderException;
+import exception.InvalidContextException;
 import exception.InvalidVisibilityModifierExcpeption;
+import org.antlr.v4.runtime.ParserRuleContext;
 import util.Utility;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
         ClassGenParser.Attr_defsContext attr_defs = ctx.attr_stmt().attr_defs();
         if (attr_defs != null) {
             attributeDefs.add(visitAttr_def(attr_defs.attr_def()));
-            for(ClassGenParser.Opt_attr_defContext opt_attr_def: Utility.getSafeList(attr_defs.opt_attr_def())) {
+            for (ClassGenParser.Opt_attr_defContext opt_attr_def : Utility.getSafeList(attr_defs.opt_attr_def())) {
                 attributeDefs.add(visitAttr_def(opt_attr_def.attr_def()));
             }
         }
@@ -39,7 +40,7 @@ public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
         Utility.log("Processing class statement");
         ClassStmt result;
         ClassGenParser.Class_defContext classDefContext = ctx.class_def();
-        VisibilityModifier visMod = handleClassVisMod(classDefContext.class_visibility_mod());
+        VisibilityModifier visMod = handleVisMod(classDefContext.class_visibility_mod());
         String className = classDefContext.name_exp().getText();
         result = new ClassStmt(visMod, className);
         Utility.log("Done processing class statement; Result: " + result);
@@ -48,32 +49,39 @@ public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
 
     /**
      * A function to return a correct visibility modifier based on the given context
-     * @param visMod: ClassGenParser.Class_visibility_modContext
+     * <p>
+     * REQUIRES: The parameter has to be typed as either Class_visibility_modContext or Visibility_modContext.
+     *
+     * @param visMod: ParserRuleContext
      * @return Enum value: VisibilityModifier
      */
-    public VisibilityModifier handleClassVisMod(ClassGenParser.Class_visibility_modContext visMod) {
-        Utility.log("Handling class visibility modifier");
+    //public VisibilityModifier handleVisMod(ClassGenParser.Class_visibility_modContext visMod) {
+    public VisibilityModifier handleVisMod(ParserRuleContext visMod) {
+        Utility.log("Handling visibility modifier");
         String visMod_str;
         if (visMod == null) {
             visMod_str = "";
         } else {
             visMod_str = visMod.getText();
         }
-        Utility.log("Class Visibility Modifier Value: " + visMod_str);
+        Utility.log("Visibility Modifier Value: " + visMod_str);
         VisibilityModifier result;
         try {
             result = VisibilityModifier.getVisMod(visMod_str);
         } catch (InvalidVisibilityModifierExcpeption e) {
-            throw new RuntimeException("Runtime Error: invalid visibility modifier in class definition");
+            throw new RuntimeException("Runtime Error: invalid visibility modifier in a definition");
         }
-        Utility.log("Handling class visibility modifier done");
+        Utility.log("Handling visibility modifier done");
         return result;
     }
 
     @Override
     public AttributeDef visitAttr_def(ClassGenParser.Attr_defContext attr_defCxt) {
-        // TODO resume from here.
+        VisibilityModifier visMod = handleVisMod(attr_defCxt.visibility_mod());
+        String attrName = attr_defCxt.name_exp().getText();
+
         return null;
     }
+
 
 }
