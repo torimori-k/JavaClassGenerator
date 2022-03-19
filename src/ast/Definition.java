@@ -28,4 +28,14 @@ public abstract class Definition extends Node{
     public boolean isArrayType() {
         return isArrayType;
     }
+
+    @Override
+    public String toString() {
+        return "Definition{" +
+                "visMod=" + visMod +
+                ", name=" + name +
+                ", type=" + type +
+                ", isArrayType=" + isArrayType +
+                '}';
+    }
 }

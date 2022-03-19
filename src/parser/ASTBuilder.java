@@ -36,12 +36,20 @@ public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
         ClassGenParser.Const_defsContext const_defs = ctx.const_stmt().const_defs();
         if (const_defs != null) {
             constDefs.add(visitConst_def(const_defs.const_def()));
-            for (ClassGenParser.Opt_const_defContext opt_const_def: Utility.getSafeList(const_defs.opt_const_def())) {
+            for (ClassGenParser.Opt_const_defContext opt_const_def : Utility.getSafeList(const_defs.opt_const_def())) {
                 constDefs.add(visitConst_def(opt_const_def.const_def()));
             }
         }
 
         List<MethodDef> methodDefs = new ArrayList<>();
+        ClassGenParser.Method_defsContext method_defs = ctx.method_stmt().method_defs();
+        if (method_defs != null) {
+            methodDefs.add(visitMethod_def(method_defs.method_def()));
+            for (ClassGenParser.Opt_method_defContext opt_method_def : Utility.getSafeList(method_defs.opt_method_def())) {
+                methodDefs.add(visitMethod_def(opt_method_def.method_def()));
+            }
+        }
+
         Utility.log("Finish: building AST");
         return new Program(classStmt, attributeDefs, constDefs, methodDefs);
     }
@@ -155,6 +163,37 @@ public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
         String const_name = const_defCtx.name_exp().getText();
         ConstructorDef result = new ConstructorDef(const_name);
         Utility.log("Done processing constructor definition; Result: " + result);
+        return result;
+    }
+
+    @Override
+    public MethodDef visitMethod_def(ClassGenParser.Method_defContext method_defCtx) {
+        Utility.log("Processing Method Definition");
+        MethodDef result;
+        VisibilityModifier visMod = handleVisMod(method_defCtx.visibility_mod());
+        String methodName = method_defCtx.name_exp().getText();
+        BasicType return_type;
+        boolean isArray = false;
+        if (method_defCtx.method_type().arr_type() != null) {
+            isArray = true;
+            try {
+                return_type = handleBasicType(method_defCtx.method_type().arr_type().var_basic_type());
+            } catch (BasicTypeException e) {
+                throw new RuntimeException("Error: for array type value while handling method definition");
+            }
+        } else {
+            if (method_defCtx.method_type().return_basic_type().VOID_TYPE() != null) {
+                return_type = BasicType.VOID;
+            } else {
+                try {
+                    return_type = handleBasicType(method_defCtx.method_type().return_basic_type().var_basic_type());
+                } catch (BasicTypeException e) {
+                    throw new RuntimeException("Error: for non-array type value while handling method definition");
+                }
+            }
+        }
+        result = new MethodDef(visMod, methodName, return_type, isArray);
+        Utility.log("Done processing method definition; Result: " + result);
         return result;
     }
 
