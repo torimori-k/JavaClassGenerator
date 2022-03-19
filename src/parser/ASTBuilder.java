@@ -1,13 +1,16 @@
 package parser;
 
 import ast.*;
+import exception.BasicTypeException;
 import exception.InvalidContextException;
 import exception.InvalidVisibilityModifierExcpeption;
+import jdk.jshell.spi.ExecutionControl;
 import org.antlr.v4.runtime.ParserRuleContext;
 import util.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
     /**
@@ -77,9 +80,60 @@ public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
 
     @Override
     public AttributeDef visitAttr_def(ClassGenParser.Attr_defContext attr_defCxt) {
+        Utility.log("Processing Attribute Definition");
         VisibilityModifier visMod = handleVisMod(attr_defCxt.visibility_mod());
         String attrName = attr_defCxt.name_exp().getText();
+        BasicType var_type;
+        boolean isArray = false;
+        if (!attr_defCxt.attr_type().arr_type().isEmpty()) {
+            isArray = true;
+            try {
+                var_type = handleBasicType(attr_defCxt.attr_type().arr_type().var_basic_type());
+            } catch (BasicTypeException e) {
+                throw new RuntimeException("Error: for array type value while handling attribute definition");
+            }
+        } else {
+            try {
+                var_type = handleBasicType(attr_defCxt.attr_type().arr_type().var_basic_type());
+            } catch (BasicTypeException e) {
+                throw new RuntimeException("Error: for non-array type value while handling attribute definition");
+            }
+        }
+        return null;
+    }
 
+    /**
+     * A function to return a right BasicType for a given type context
+     *
+     * @param typeCtx: ClassGenParser.Var_basic_typeContext
+     * @return BasicType
+     * @throws BasicTypeException: thrown when there is some error in matching the type given the context
+     */
+    public BasicType handleBasicType(ClassGenParser.Var_basic_typeContext typeCtx) throws BasicTypeException {
+        if (typeCtx.BYTE_TYPE() != null) {
+            return BasicType.BYTE;
+        } else if (typeCtx.SHORT_TYPE() != null) {
+            return BasicType.SHORT;
+        } else if (typeCtx.INT_TYPE() != null) {
+            return BasicType.INT;
+        } else if (typeCtx.LONG_TYPE() != null) {
+            return BasicType.LONG;
+        } else if (typeCtx.FLOAT_TYPE() != null) {
+            return BasicType.FLOAT;
+        } else if (typeCtx.DOUBLE_TYPE() != null) {
+            return BasicType.DOUBLE;
+        } else if (typeCtx.CHAR_TYPE() != null) {
+            return BasicType.CHAR;
+        } else if (typeCtx.BOOLEAN_TYPE() != null) {
+            return BasicType.BOOLEAN;
+        } else if (typeCtx.STRING_TYPE() != null) {
+            return BasicType.STRING;
+        } else {
+            throw new BasicTypeException("Error: invalid basic type");
+        }
+    }
+
+    public Set<Boolean> handleSetterAndGetter(){
         return null;
     }
 
