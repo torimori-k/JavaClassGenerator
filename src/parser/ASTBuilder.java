@@ -2,15 +2,15 @@ package parser;
 
 import ast.*;
 import exception.BasicTypeException;
-import exception.InvalidContextException;
+
 import exception.InvalidVisibilityModifierExcpeption;
-import jdk.jshell.spi.ExecutionControl;
+
 import org.antlr.v4.runtime.ParserRuleContext;
 import util.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 
 public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
     /**
@@ -33,6 +33,14 @@ public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
         }
 
         List<ConstructorDef> constDefs = new ArrayList<>();
+        ClassGenParser.Const_defsContext const_defs = ctx.const_stmt().const_defs();
+        if (const_defs != null) {
+            constDefs.add(visitConst_def(const_defs.const_def()));
+            for (ClassGenParser.Opt_const_defContext opt_const_def: Utility.getSafeList(const_defs.opt_const_def())) {
+                constDefs.add(visitConst_def(opt_const_def.const_def()));
+            }
+        }
+
         List<MethodDef> methodDefs = new ArrayList<>();
         Utility.log("Finish: building AST");
         return new Program(classStmt, attributeDefs, constDefs, methodDefs);
@@ -58,7 +66,6 @@ public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
      * @param visMod: ParserRuleContext
      * @return Enum value: VisibilityModifier
      */
-    //public VisibilityModifier handleVisMod(ClassGenParser.Class_visibility_modContext visMod) {
     public VisibilityModifier handleVisMod(ParserRuleContext visMod) {
         String visMod_str;
         if (visMod == null) {
@@ -107,7 +114,7 @@ public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
             hasSetter = true;
         }
         result = new AttributeDef(visMod, attrName, var_type, isArray, hasGetter, hasSetter);
-        Utility.log("Done processing attr_def; Result: " + result);
+        Utility.log("Done processing attribute definition; Result: " + result);
         return result;
     }
 
@@ -140,6 +147,15 @@ public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
         } else {
             throw new BasicTypeException("Error: invalid basic type");
         }
+    }
+
+    @Override
+    public ConstructorDef visitConst_def(ClassGenParser.Const_defContext const_defCtx) {
+        Utility.log("Processing Constructor Definition");
+        String const_name = const_defCtx.name_exp().getText();
+        ConstructorDef result = new ConstructorDef(const_name);
+        Utility.log("Done processing constructor definition; Result: " + result);
+        return result;
     }
 
 
