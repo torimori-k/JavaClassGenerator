@@ -60,32 +60,30 @@ public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
      */
     //public VisibilityModifier handleVisMod(ClassGenParser.Class_visibility_modContext visMod) {
     public VisibilityModifier handleVisMod(ParserRuleContext visMod) {
-        Utility.log("Handling visibility modifier");
         String visMod_str;
         if (visMod == null) {
             visMod_str = "";
         } else {
             visMod_str = visMod.getText();
         }
-        Utility.log("Visibility Modifier Value: " + visMod_str);
         VisibilityModifier result;
         try {
             result = VisibilityModifier.getVisMod(visMod_str);
         } catch (InvalidVisibilityModifierExcpeption e) {
             throw new RuntimeException("Runtime Error: invalid visibility modifier in a definition");
         }
-        Utility.log("Handling visibility modifier done");
         return result;
     }
 
     @Override
     public AttributeDef visitAttr_def(ClassGenParser.Attr_defContext attr_defCxt) {
         Utility.log("Processing Attribute Definition");
+        AttributeDef result;
         VisibilityModifier visMod = handleVisMod(attr_defCxt.visibility_mod());
         String attrName = attr_defCxt.name_exp().getText();
         BasicType var_type;
         boolean isArray = false;
-        if (!attr_defCxt.attr_type().arr_type().isEmpty()) {
+        if (attr_defCxt.attr_type().arr_type() != null) {
             isArray = true;
             try {
                 var_type = handleBasicType(attr_defCxt.attr_type().arr_type().var_basic_type());
@@ -94,12 +92,23 @@ public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
             }
         } else {
             try {
-                var_type = handleBasicType(attr_defCxt.attr_type().arr_type().var_basic_type());
+                var_type = handleBasicType(attr_defCxt.attr_type().var_basic_type());
             } catch (BasicTypeException e) {
                 throw new RuntimeException("Error: for non-array type value while handling attribute definition");
             }
         }
-        return null;
+        boolean hasGetter = false;
+        boolean hasSetter = false;
+        ClassGenParser.Getter_setter_optionsContext getterSetterCtx = attr_defCxt.getter_setter_options();
+        if (getterSetterCtx.GETTER_OPTION() != null) {
+            hasGetter = true;
+        }
+        if (getterSetterCtx.SETTER_OPTION() != null) {
+            hasSetter = true;
+        }
+        result = new AttributeDef(visMod, attrName, var_type, isArray, hasGetter, hasSetter);
+        Utility.log("Done processing attr_def; Result: " + result);
+        return result;
     }
 
     /**
@@ -131,10 +140,6 @@ public class ASTBuilder extends ClassGenParserBaseVisitor<Node> {
         } else {
             throw new BasicTypeException("Error: invalid basic type");
         }
-    }
-
-    public Set<Boolean> handleSetterAndGetter(){
-        return null;
     }
 
 

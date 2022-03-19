@@ -23,4 +23,16 @@ public class AttributeDef extends Definition{
     public <C, T> T accept(C context, ClassGenVisitor<C, T> v) {
         return v.visit(context, this);
     }
+
+    @Override
+    public String toString() {
+        return "AttributeDef{" +
+                "hasGetter=" + hasGetter +
+                ", hasSetter=" + hasSetter +
+                ", visMod=" + visMod +
+                ", name=" + name +
+                ", type=" + type +
+                ", isArrayType=" + isArrayType +
+                '}';
+    }
 }
