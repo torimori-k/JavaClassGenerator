@@ -1,6 +1,6 @@
 # JavaClassGenerator
 
-Still in the middle of migrating documents.
+Note: Still in the process of migrating documents
 
 ## [Project Summary](https://docs.google.com/document/d/1QoO5ejjv8qEQGb-muHx0t-wwpgZ1a_opUGPhxWoWmKI/edit?usp=sharing)
 
