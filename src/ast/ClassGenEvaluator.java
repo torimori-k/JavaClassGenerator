@@ -15,11 +15,13 @@ public class ClassGenEvaluator implements ClassGenVisitor<Void, Void> {
     private int indentCounter;
     private int[] nums;
     private Map<String, AttributeInfo> attributes; // This will be used to build a constructor.
+    private Map<String, AttributeInfo> constParams; // remember this map will always be the subset of map attributes.
 
     public ClassGenEvaluator(PrintWriter out) {
         this.out = out;
         indentCounter = 0;
         attributes = new TreeMap<>();
+        constParams = new TreeMap<>();
     }
 
     @Override
@@ -31,15 +33,19 @@ public class ClassGenEvaluator implements ClassGenVisitor<Void, Void> {
         for (AttributeDef attrDef : attrStmt) {
             attrDef.accept(context, this);
         }
-        List<ConstructorDef> constStmt = program.getConstStmt();
 
+        List<ConstructorDef> constStmt = program.getConstStmt();
         indentCounter++;
-        out.write(getIndent() + "public " + program.getClassName() + "{\n");
+        out.write(getIndent() + "public " + program.getClassName() + "(");
         for (ConstructorDef constDef : constStmt) {
             constDef.accept(context, this);
         }
+        writeConstParameterList();
+        out.write(") {\n");
+        writeConstructorDefinition();
         out.write(getIndent() + "}\n");
         indentCounter--;
+
         List<MethodDef> methodStmt = program.getMethodStmt();
         for (MethodDef methodDef : methodStmt) {
             methodDef.accept(context, this);
@@ -97,9 +103,11 @@ public class ClassGenEvaluator implements ClassGenVisitor<Void, Void> {
 
     @Override
     public Void visit(Void context, ConstructorDef constDef) {
-        indentCounter++;
-
-        indentCounter--;
+        String paramName = constDef.getName();
+        AttributeInfo attributeInfo = attributes.get(paramName);
+        if (attributeInfo != null) {
+            constParams.put(paramName, new AttributeInfo(attributeInfo.getBasicType(), attributeInfo.isArrayType()));
+        }
         return null;
     }
 
@@ -152,6 +160,35 @@ public class ClassGenEvaluator implements ClassGenVisitor<Void, Void> {
             }
         }
         return input;
+    }
+
+    /**
+     * A function to write the parameter list to the target file
+     */
+    public void writeConstParameterList() {
+        StringBuilder result = new StringBuilder();
+        if(constParams.isEmpty()) {
+            return;
+        }
+        for(String paramName: constParams.keySet()) {
+            AttributeInfo paramType = constParams.get(paramName);
+            BasicType basicType = paramType.getBasicType();
+            boolean isArray = paramType.isArrayType();
+            String formattedType = formatType(basicType, isArray);
+            result.append(formattedType).append(" ").append(paramName).append(", ");
+        }
+        out.write(result.substring(0, result.length() - 2)); // remove the last ", "
+    }
+
+    /**
+     * A function to write the definition of constructor to the target file
+     */
+    public void writeConstructorDefinition() {
+        indentCounter++;
+        for(String paramName: constParams.keySet()) {
+            out.write(getIndent() + "this." + paramName + " = " + paramName + ";\n");
+        }
+        indentCounter--;
     }
 
     private class AttributeInfo{
