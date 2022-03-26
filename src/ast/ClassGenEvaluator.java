@@ -114,7 +114,22 @@ public class ClassGenEvaluator implements ClassGenVisitor<Void, Void> {
     @Override
     public Void visit(Void context, MethodDef methodDef) {
         indentCounter++;
-
+        VisibilityModifier visMod = methodDef.getVisMod();
+        String methodName = methodDef.getName();
+        BasicType basicType = methodDef.getType();
+        boolean isArray = methodDef.isArrayType();
+        out.write(getIndent());
+        if (visMod != VisibilityModifier.DEFAULT) {
+            out.write(visMod.getValue() + " ");
+        }
+        String formattedReturnType = formatType(basicType, isArray);
+        out.write(formattedReturnType + " " + methodName + "() {\n");
+        if (basicType != BasicType.VOID) {
+            indentCounter++;
+            out.write(getIndent() + "return " + getDefaultReturnValue(basicType) + ";\n");
+            indentCounter--;
+        }
+        out.write(getIndent() + "}\n\n");
         indentCounter--;
         return null;
     }
@@ -189,6 +204,21 @@ public class ClassGenEvaluator implements ClassGenVisitor<Void, Void> {
             out.write(getIndent() + "this." + paramName + " = " + paramName + ";\n");
         }
         indentCounter--;
+    }
+
+    public String getDefaultReturnValue(BasicType type) {
+        if (type == BasicType.BOOLEAN) {
+            return "false";
+        } else if (type == BasicType.BYTE || type == BasicType.DOUBLE || type == BasicType.FLOAT
+                    || type == BasicType.INT || type == BasicType.LONG || type == BasicType.SHORT) {
+            return "0";
+        } else if (type == BasicType.CHAR) {
+            return "'\\0'";
+        } else if (type == BasicType.STRING) {
+            return "null";
+        } else {
+            return "";
+        }
     }
 
     private class AttributeInfo{
