@@ -1,6 +1,7 @@
 package ui;
 
 
+import ast.ClassGenEvaluator;
 import ast.Program;
 import exception.NullClassNameException;
 import jdk.jshell.execution.Util;
@@ -33,7 +34,9 @@ public class Main {
                 output_path = Utility.setOutputFileLocation(className);
                 PrintWriter out = new PrintWriter(new FileWriter(output_path));
                 // TODO: add evaluation
-                out.println("testing"); // TODO: delete this later.
+
+                ClassGenEvaluator evaluator = new ClassGenEvaluator(out);
+                evaluator.visit(null, program);
                 out.close();
                 Utility.log("Evaluation Completed");
                 Utility.log("Generated a File at \"" + output_path + "\"");

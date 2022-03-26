@@ -11,5 +11,9 @@ public enum BasicType {
         this.type_value = type_value;
     }
 
+    public String getValue(){
+        return this.type_value;
+    }
+
 
 }
