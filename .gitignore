@@ -1,3 +1,4 @@
 JavaClassGenerator/.DS_Store
 *.class
 out/**
+/src/Bird.java

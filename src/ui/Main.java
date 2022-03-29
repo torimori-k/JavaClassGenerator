@@ -3,6 +3,7 @@ package ui;
 
 import ast.ClassGenEvaluator;
 import ast.Program;
+import ast.StaticAttributeDecValidator;
 import exception.NullClassNameException;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -16,6 +17,7 @@ import util.Utility;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 public class Main {
     private static final String INPUT_FILE_NAME = "input.txt";
@@ -24,15 +26,20 @@ public class Main {
     public static void main(String[] args) throws IOException, NullClassNameException {
         Program program = parseInput();
 
-        // TODO: add static validation (come up with what to check later)
+        StaticAttributeDecValidator validator = new StaticAttributeDecValidator();
+        String errorMsg = validator.visit(new HashMap<>(), program);
+        if (!errorMsg.isEmpty()) {
+            System.err.println("Static Validation Failed:\n" + errorMsg);
+            System.exit(1);
+        }
+        Utility.log("Static Validation Completed");
 
         String className;
         try {
-            className = program.getClassName(); // TODO: after completing implementation, uncomment this part
+            className = program.getClassName();
             if(className != null) {
                 output_path = Utility.setOutputFileLocation(className);
                 PrintWriter out = new PrintWriter(new FileWriter(output_path));
-                // TODO: add evaluation
 
                 ClassGenEvaluator evaluator = new ClassGenEvaluator(out);
                 evaluator.visit(null, program);
