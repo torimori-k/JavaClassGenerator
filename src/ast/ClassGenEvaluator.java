@@ -84,13 +84,17 @@ public class ClassGenEvaluator implements ClassGenVisitor<Void, Void> {
         // check if getter/setter should be generated.
         if(attributeDef.hasGetter()) {
             out.write(getIndent() + "public " + formattedType + " get" + capitalizeFirstChar(name) + "() {\n");
+            indentCounter++;
             out.write(getIndent() + "return this." + name + ";\n");
+            indentCounter--;
             out.write(getIndent() + "}\n");
         }
         if(attributeDef.hasSetter()){
             out.write(getIndent() + "public void set" + capitalizeFirstChar(name));
             out.write("(" + formattedType + " " + name + ") {\n");
+            indentCounter++;
             out.write(getIndent() + "this." + name + " = " + name + ";\n");
+            indentCounter--;
             out.write(getIndent() + "}\n");
         }
 
