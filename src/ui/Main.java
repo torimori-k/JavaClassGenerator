@@ -24,8 +24,8 @@ public class Main {
     private static final String INPUT_FILE_NAME = "input.txt";
     private static String output_path;
 
-    public static void main(String[] args) throws IOException, NullClassNameException {
-        Program program = parseInput();
+    public static void main(String[] args) throws NullClassNameException {
+        Program program = parseInput(INPUT_FILE_NAME);
 
         StaticAttributeDecValidator validator = new StaticAttributeDecValidator();
         String errorMsg = validator.visit(new HashMap<>(), program);
@@ -58,8 +58,13 @@ public class Main {
 
     }
 
-    public static Program parseInput() throws IOException {
-        ClassGenLexer lexer = new ClassGenLexer(CharStreams.fromFileName(INPUT_FILE_NAME));
+    public static Program parseInput(String inputFilePath) {
+        ClassGenLexer lexer = null;
+        try {
+            lexer = new ClassGenLexer(CharStreams.fromFileName(inputFilePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         TokenStream tokens = new CommonTokenStream(lexer);
         for (Token token : lexer.getAllTokens()) {
             System.out.println(token);
