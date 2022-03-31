@@ -12,6 +12,7 @@ import org.antlr.v4.runtime.TokenStream;
 import parser.ASTBuilder;
 import parser.ClassGenLexer;
 import parser.ClassGenParser;
+import util.SyntaxErrorListener;
 import util.Utility;
 
 import java.io.FileWriter;
@@ -64,9 +65,14 @@ public class Main {
             System.out.println(token);
         }
         lexer.reset(); // reset the token stream to the initial position
+        lexer.removeErrorListeners();
+        lexer.addErrorListener(SyntaxErrorListener.INSTANCE);
         Utility.log("Tokenization Completed.");
 
         ClassGenParser parser = new ClassGenParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(SyntaxErrorListener.INSTANCE);
+
         ASTBuilder astBuilder = new ASTBuilder();
         Program program = astBuilder.visitProgram(parser.program());
         Utility.log("Parsing and Building AST Completed.");
