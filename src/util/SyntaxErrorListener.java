@@ -18,6 +18,8 @@ public class SyntaxErrorListener extends BaseErrorListener {
             targetLine = Files.readAllLines(Paths.get(recognizer.getInputStream().getSourceName())).get(line - 1);
         } catch (IOException exception) {
             exception.printStackTrace();
+        } catch (IndexOutOfBoundsException exception) {
+            throw new ParseCancellationException(String.format("The empty input."));
         }
 
         String srcName = recognizer.getInputStream().getSourceName();
